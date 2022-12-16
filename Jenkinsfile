@@ -11,7 +11,7 @@ pipeline{
                 sh """
                 docker stop cicd-test
                 docker rm -f cicd-test
-                docker rmi -f cicd-test
+                docker rmi -f cicd-test:${env.BUILD_ID - 1}
                 """
             }
         }
