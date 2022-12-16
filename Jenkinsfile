@@ -6,14 +6,6 @@ pipeline{
                 git 'https://github.com/unhy55/CICD.git'
             }
         }
-        stage('Docker Rm') {
-            steps {
-                sh """
-                docker stop cicd-test
-                docker rm -f cicd-test
-                """
-            }
-        }
         stage('Build image'){
             steps{
                 script{
