@@ -26,5 +26,13 @@ pipeline{
                 }
             }
         }
+        stage('Deploy') {
+            when{
+                branch 'master'
+            }
+            steps {
+                sh "docker run --name cicd-test -d -p 80:3000 hhs535/cicd:${env.BUILD_ID}"
+            }
+        }
     }
 }
