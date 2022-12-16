@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>SimpleChatting</title>
+    <link rel="stylesheet" href="main.css"/>
+</head>
+
+<body>
+    <div>
+        <textarea id="text_box"></textarea>
+    </div>
+    <div>
+        <form id="chating">
+            <div>   
+                name : <input id="name" type="text" onclick="openChild()">
+                message : <input id="msg" type="text">
+                <input type="button" id="btn" value="send" onclick="send()" />
+            </div>
+        </form>
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        var socket = io();
+
+        function send() {
+        socket.emit('receive', document.getElementById("name").value, document.getElementById("msg").value);
+        document.getElementById("msg").value="";
+        }
+        socket.on('client_receive', function (msg) {
+        document.getElementById("text_box").value += msg + "\n";
+        });
+
+        function openChild() { 
+        var openWin;
+        openWin = window.open("/name_input",
+                "childForm", "width=600, height=300, resizable = no, scrollbars = no");    
+        }
+    </script>
+</body>
+
+</html>
